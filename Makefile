@@ -1,15 +1,13 @@
-TARGET = bin/os.img
-
 .PHONY: inspect run clean
 
-$(TARGET): obj/boot.o obj/stage2.o
+build/os.img: build/boot.o
 	ld -T linker.ld
-obj/%.o: src/%.s
+build/%.o: src/%.s
 	gcc -c -static -nostdlib $^ -o $@
 
 inspect:
-	xxd $(TARGET)
-run:
-	qemu-system-x86_64 $(TARGET)
+	xxd ./build/os.img
+run: build/os.img
+	qemu-system-x86_64 ./build/os.img
 clean:
-	rm obj/* $(TARGET)
+	rm build/*

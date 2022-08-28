@@ -1,3 +1,7 @@
-.section .text
-.asciz "Hello, Wonderful World this is some nice text in the second stage of the bootloader"
+// print a
+mov $0xe, %ah
+mov 'a', %al
+int $0x10
+
+
 
